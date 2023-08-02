@@ -1,11 +1,29 @@
+import Previous from "../../assets/previous.png";
+import Next from "../../assets/next.png";
+import Image from "next/image";
+import styled from "@emotion/styled";
+
+const ButtonStyled = styled("button")`
+  background-color: #40e0d0;
+  border: none;
+  color: white;
+  margin: 15px;
+  display: inline-block;
+  overflow: hidden;
+  &:hover {
+    -webkit-transition:all .9s ease;
+    -moz-transition:all .9s ease;
+    -ms-transition:all .9s ease;
+    transform:scale(1.35);
+  }
+`;
+
 interface NavigationProps {
-  prev: string | undefined;
-  next: string | undefined;
   onPrev: () => void;
   onNext: () => void;
 }
 
-export const Pagination = ({ prev, next, onPrev, onNext }: NavigationProps) => {
+export const Pagination = ({ onPrev, onNext }: NavigationProps) => {
   const handlePrevClick = () => {
     onPrev();
   };
@@ -19,10 +37,14 @@ export const Pagination = ({ prev, next, onPrev, onNext }: NavigationProps) => {
       <nav>
         <ul>
           <li>
-            <button onClick={() => handlePrevClick()}>Prev</button>
+            <ButtonStyled onClick={handlePrevClick}>
+              <Image src={Previous} alt="Previous" width={25} />
+            </ButtonStyled>
           </li>
           <li>
-            <button onClick={() => handleNextClick()}>Next</button>
+            <ButtonStyled onClick={handleNextClick}>
+              <Image src={Next} alt="Next" width={25} />
+            </ButtonStyled>
           </li>
         </ul>
       </nav>
