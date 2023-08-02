@@ -24,10 +24,12 @@ const ListItem = styled("li")`
   display: flex;
   align-items: center;
   position: relative;
+  padding: 5px;
   padding-left: 34px;
   margin: 10px;
   &:hover {
     cursor: pointer;
+    background-color: #d3d3d3;
     color: blue;
   }
 `;

@@ -79,7 +79,9 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
       setPaginationState(res.data.info);
     };
 
-    LoadNextData();
+    if (nextURL != undefined) {
+      LoadNextData();
+    }
   };
 
   useEffect(() => {
