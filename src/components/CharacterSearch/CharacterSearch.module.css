@@ -1,5 +1,4 @@
 .suggestions {
-  /* Styles of the suggestions container */
   overflow-y: scroll;
   border: 1px solid #f3f3f3;
   background-color: white;
@@ -10,6 +9,5 @@
 }
 
 .suggestions.hidden {
-  /* Will hide the suggestions */
   visibility: hidden;
 }

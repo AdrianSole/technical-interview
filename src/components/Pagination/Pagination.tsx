@@ -37,12 +37,12 @@ export const Pagination = ({ onPrev, onNext }: NavigationProps) => {
       <nav>
         <ul>
           <li>
-            <ButtonStyled onClick={handlePrevClick}>
+            <ButtonStyled onClick={handlePrevClick} data-testid="previous">
               <Image src={Previous} alt="Previous" width={25} />
             </ButtonStyled>
           </li>
           <li>
-            <ButtonStyled onClick={handleNextClick}>
+            <ButtonStyled onClick={handleNextClick} data-testid="next">
               <Image src={Next} alt="Next" width={25} />
             </ButtonStyled>
           </li>

@@ -8,12 +8,12 @@ import { Footer } from "src/components/Footer";
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <CharacterProvider>
-        <Header />
-        <main>
+      <Header />
+      <main>
+        <CharacterProvider>
           <CharacterList />
-        </main>
-      </CharacterProvider>
+        </CharacterProvider>
+      </main>
       <Footer />
       <Component {...pageProps} />
     </>

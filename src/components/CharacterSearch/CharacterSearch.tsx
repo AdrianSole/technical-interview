@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Portal from "../../assets/portal.png";
 import styled from "@emotion/styled";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Character } from "src/api/types/Character";
 import styles from "./CharacterSearch.module.css";
-import axios from "axios";
+import * as CharacterFilterService from "../../api/services/CharacterFilterService";
 
 const SearchContainer = styled("div")`
   width: 30rem;
@@ -62,24 +62,11 @@ export const CharacterSearch = () => {
   const [hideSuggestions, setHideSuggestions] = useState(true);
 
   const filterCharacters = () => {
-    const filterURL = axios.create({
-      baseURL: "https://rickandmortyapi.com/api/character",
-    });
-
-    const getFilteredCharacters = async (name: string) => {
-      try {
-        return await filterURL.get(`?name=${name}`);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     const loadFilteredData = async () => {
-      console.log(searchValue);
-      console.log(await getFilteredCharacters(searchValue));
-      const res = await getFilteredCharacters(searchValue);
+      const res = await CharacterFilterService.getCharactersFiltered(
+        searchValue
+      );
       setSuggestions(res?.data.results);
-      console.log(suggestions);
     };
 
     loadFilteredData();
@@ -95,6 +82,7 @@ export const CharacterSearch = () => {
       <SearchContainer>
         <div>
           <TextBox
+            data-testid="textbox"
             type="text"
             placeholder="Search a character..."
             value={searchValue}
@@ -110,6 +98,7 @@ export const CharacterSearch = () => {
             className={`${styles["suggestions"]} ${
               hideSuggestions && styles["hidden"]
             }`}
+            data-testid="suggestions"
           >
             {suggestions?.map((suggestion) => (
               <SuggestionDiv key={suggestion.id}>
