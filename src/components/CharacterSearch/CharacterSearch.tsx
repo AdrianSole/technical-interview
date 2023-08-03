@@ -1,16 +1,16 @@
 import Image from "next/image";
 import Portal from "../../assets/portal.png";
 import styled from "@emotion/styled";
-import { useCharacterList } from "../CharacterContext";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Character } from "src/api/types/Character";
 import styles from "./CharacterSearch.module.css";
+import axios from "axios";
 
 const SearchContainer = styled("div")`
-  display: flex;
-  align-items: center;
   width: 30rem;
   position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const TextBox = styled("input")`
@@ -42,37 +42,81 @@ const PortalButton = styled("button")`
   }
 `;
 
+const SuggestionDiv = styled("div")`
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 1px 10px;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  &:hover {
+    background-color: #f3f3f3;
+  }
+`;
+
 type Change = ChangeEvent<HTMLInputElement>;
 
 export const CharacterSearch = () => {
-  const context = useCharacterList();
-
   const [searchValue, setSearchValue] = useState("");
-  const [suggestions, setSuggestions] = useState<Character[] | undefined>([]);
-  const [hideSuggestions, setHideSuggestions] = useState(false);
+  const [suggestions, setSuggestions] = useState<Character[]>();
+  const [hideSuggestions, setHideSuggestions] = useState(true);
+
+  const filterCharacters = () => {
+    const filterURL = axios.create({
+      baseURL: "https://rickandmortyapi.com/api/character",
+    });
+
+    const getFilteredCharacters = async (name: string) => {
+      try {
+        return await filterURL.get(`?name=${name}`);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const loadFilteredData = async () => {
+      console.log(searchValue);
+      console.log(await getFilteredCharacters(searchValue));
+      const res = await getFilteredCharacters(searchValue);
+      setSuggestions(res?.data.results);
+      console.log(suggestions);
+    };
+
+    loadFilteredData();
+  };
 
   const handleChange = (e: Change) => {
     setSearchValue(e.target.value);
-    setSuggestions(context.listState);
+    filterCharacters();
   };
 
   return (
     <>
       <SearchContainer>
-        <TextBox
-          type="text"
-          placeholder="Search a character..."
-          value={searchValue}
-          onChange={handleChange}
-        />
-        <div
-          className={`${styles["suggestions"]} ${
-            hideSuggestions && styles["hidden"]
-          }`}
-        >
-          {suggestions?.map((suggestion) => (
-            <div className={styles.suggestion}>{suggestion.name}</div>
-          ))}
+        <div>
+          <TextBox
+            type="text"
+            placeholder="Search a character..."
+            value={searchValue}
+            onChange={handleChange}
+            onFocus={() => setHideSuggestions(false)}
+            onBlur={async () => {
+              setTimeout(() => {
+                setHideSuggestions(true);
+              }, 200);
+            }}
+          />
+          <div
+            className={`${styles["suggestions"]} ${
+              hideSuggestions && styles["hidden"]
+            }`}
+          >
+            {suggestions?.map((suggestion) => (
+              <SuggestionDiv key={suggestion.id}>
+                {suggestion.name}
+              </SuggestionDiv>
+            ))}
+          </div>
         </div>
         <PortalButton type="button">
           <Image src={Portal} alt="Portal" width={20} />

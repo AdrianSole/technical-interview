@@ -79,6 +79,7 @@ export const CharacterList = () => {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
+          ariaHideApp={false}
           style={customStyles}
           contentLabel="Example"
         >

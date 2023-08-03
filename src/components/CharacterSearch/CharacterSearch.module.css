@@ -1,31 +1,15 @@
 .suggestions {
   /* Styles of the suggestions container */
-  display: inline;
   overflow-y: scroll;
   border: 1px solid #f3f3f3;
   background-color: white;
   max-height: 20rem;
-  width: 100%;
   height: fit-content;
-  position: relative;
+  position: absolute;
   z-index: 10;
 }
 
 .suggestions.hidden {
+  /* Will hide the suggestions */
   visibility: hidden;
-}
-
-.suggestion {
-  /* Styling of a single suggestion */
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 1px 10px;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-}
-
-.suggestion:hover {
-  /* Changing background color on hover */
-  background-color: #f3f3f3;
 }

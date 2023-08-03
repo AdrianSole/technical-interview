@@ -16,6 +16,10 @@ const RM_Header = styled("header")`
   margin-bottom: 20px;
 `;
 
+const ImgContainer = styled("div")`
+  margin: 5px;
+`;
+
 const H1 = styled("h1")`
   color: #fff;
   display: flex;
@@ -23,17 +27,19 @@ const H1 = styled("h1")`
   align-items: center;
 `;
 
-const SearchContainer = styled('div')`
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
+const SearchContainer = styled("div")`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
 `;
 
 export const Header = () => {
   return (
     <>
       <RM_Header>
-        <Image src={mainIcon} width={50} alt="mainIcon" />
+        <ImgContainer>
+          <Image src={mainIcon} width={50} alt="mainIcon" />
+        </ImgContainer>
         <H1>Rick & Morty Character List</H1>
         <SearchContainer>
           <CharacterSearch />
