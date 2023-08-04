@@ -3,7 +3,7 @@ name: Tests
 on:
   push:
     branches:
-      - main # Cambia "main" por el nombre de la rama que deseas probar
+      - main
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "14" # Cambia a la versión de Node.js que estás utilizando
+          node-version: "18.16.1"
 
       - name: Install dependencies
         run: npm install
