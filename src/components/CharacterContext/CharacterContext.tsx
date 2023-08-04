@@ -19,9 +19,14 @@ interface CharacterListState {
   setListState: Dispatch<SetStateAction<Character[] | undefined>>;
   paginationState: PaginationInfo | undefined;
   setPaginationState: Dispatch<SetStateAction<PaginationInfo | undefined>>;
+  modalIsOpen: boolean;
+  modalData: Character | undefined;
+  setModalData: Dispatch<SetStateAction<Character | undefined>>;
   loadData: () => void;
   onPrev: () => void;
   onNext: () => void;
+  openModal: () => void;
+  closeModal: () => void;
 }
 
 const CharacterListContext = createContext<CharacterListState | undefined>(
@@ -32,6 +37,9 @@ const CharacterListContext = createContext<CharacterListState | undefined>(
 export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const [listState, setListState] = useState<Character[]>();
   const [paginationState, setPaginationState] = useState<PaginationInfo>();
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalData, setModalData] = useState<Character>();
 
   const loadData = async () => {
     const res = await characterService.getCharacters();
@@ -84,6 +92,14 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     }
   };
 
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     loadData();
   }, []);
@@ -93,9 +109,14 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     setListState,
     paginationState,
     setPaginationState,
+    modalIsOpen,
+    modalData,
+    setModalData,
     loadData,
     onPrev,
     onNext,
+    openModal,
+    closeModal
   };
 
   return (

@@ -1,9 +1,7 @@
 import styled from "@emotion/styled";
 import { Pagination } from "../Pagination";
 import { useCharacterList } from "../CharacterContext";
-import Modal from "react-modal";
-import { useState } from "react";
-import { Character } from "src/api/types/Character";
+import { CharacterModal } from "../CharacterModal";
 
 const ListContainer = styled("div")`
   display: flex;
@@ -37,29 +35,6 @@ const ListItem = styled("li")`
 export const CharacterList = () => {
   const context = useCharacterList();
 
-  //Modal
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalData, setModalData] = useState<Character>();
-
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-    },
-  };
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
   return (
     <>
       <ListContainer>
@@ -68,34 +43,19 @@ export const CharacterList = () => {
             <ListItem
               key={characters.id}
               onClick={() => {
-                openModal();
-                setModalData(characters);
+                context.openModal();
+                context.setModalData(characters);
               }}
             >
               {characters.name}
             </ListItem>
           ))}
         </List>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          ariaHideApp={false}
-          style={customStyles}
-          contentLabel="Example"
-        >
-          <h2>{modalData?.name}</h2>
-          <button onClick={closeModal}>close</button>
-          <div>
-            <img src={modalData?.image} alt="alt" />
-            <ol>
-              <li>{modalData?.status}</li>
-              <li>{modalData?.species}</li>
-              <li>{modalData?.type}</li>
-              <li>{modalData?.gender}</li>
-              <li>{modalData?.created}</li>
-            </ol>
-          </div>
-        </Modal>
+        <CharacterModal
+          modalIsOpen={context.modalIsOpen}
+          closeModal={context.closeModal}
+          modalData={context.modalData}
+        />
         <Pagination onPrev={context.onPrev} onNext={context.onNext} />
       </ListContainer>
     </>

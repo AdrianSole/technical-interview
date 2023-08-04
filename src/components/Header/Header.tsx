@@ -36,7 +36,7 @@ const SearchContainer = styled("div")`
 export const Header = () => {
   return (
     <>
-      <RM_Header>
+      <RM_Header data-testid="header">
         <ImgContainer>
           <Image src={mainIcon} width={50} alt="mainIcon" />
         </ImgContainer>
