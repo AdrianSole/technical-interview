@@ -1,7 +1,8 @@
 import Modal from "react-modal";
 import { Character } from "src/api/types/Character";
 
-interface CharacterModalProps {
+// Export interface to test
+export interface CharacterModalProps {
   modalIsOpen: boolean;
   closeModal: () => void;
   modalData: Character | undefined;

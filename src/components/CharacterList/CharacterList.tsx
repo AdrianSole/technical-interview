@@ -41,6 +41,7 @@ export const CharacterList = () => {
         <List>
           {context.listState?.map((characters) => (
             <ListItem
+              data-testid="listItem"
               key={characters.id}
               onClick={() => {
                 context.openModal();

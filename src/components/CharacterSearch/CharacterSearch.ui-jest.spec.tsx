@@ -27,6 +27,7 @@ describe("CharacterSearch", () => {
 
     fireEvent.blur(searchInput);
 
+    // FIXME: Expected the element to have class: hidden, Received: suggestions false
     expect(suggestions).toHaveClass("hidden");
   });
 });
