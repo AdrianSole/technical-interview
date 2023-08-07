@@ -1,3 +1,5 @@
+import { Router, useRouter } from "next/router";
+import { MouseEventHandler } from "react";
 import Modal from "react-modal";
 import { Character } from "src/api/types/Character";
 
@@ -24,6 +26,13 @@ export const CharacterModal = ({
   closeModal,
   modalData,
 }: CharacterModalProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push({
+      pathname: "/CharacterDetails"
+    });
+  };
   return (
     <>
       <Modal
@@ -45,6 +54,8 @@ export const CharacterModal = ({
             <li>{modalData?.created}</li>
           </ol>
         </div>
+
+        <button onClick={handleClick}>+ info</button>
       </Modal>
     </>
   );

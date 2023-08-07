@@ -31,14 +31,14 @@ describe("CharacterList", () => {
     }),
   }));
 
-  it("should open the modal window when a list item is clicked", () => {
+  it("should open the modal window when a list item is clicked", async () => {
     render(
       <CharacterProvider>
         <CharacterList />
       </CharacterProvider>
     );
     // FIXME: TestingLibraryElementError: Unable to find an element by: [data-testid="listItem"] !!!
-    const listItem = screen.getByTestId("listItem");
+    const listItem = await screen.findByTestId("listItem");
     fireEvent.click(listItem);
     expect(screen.getByTestId("character-modal")).toBeInTheDocument();
   });

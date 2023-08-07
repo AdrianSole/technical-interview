@@ -16,8 +16,7 @@ const FooterStyled = styled("footer")`
 
 export const Footer = () => {
   return (
-    <FooterStyled
-    data-testid="footer">
+    <FooterStyled data-testid="footer">
       <Image src={MainIcon} alt="Main Icon" width={50} />
     </FooterStyled>
   );

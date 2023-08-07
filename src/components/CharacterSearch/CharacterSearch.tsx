@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Portal from "../../assets/portal.png";
 import styled from "@emotion/styled";
 import { ChangeEvent, useState } from "react";
 import { Character } from "src/api/types/Character";
@@ -107,9 +105,6 @@ export const CharacterSearch = () => {
             ))}
           </div>
         </div>
-        <PortalButton type="button">
-          <Image src={Portal} alt="Portal" width={20} />
-        </PortalButton>
       </SearchContainer>
     </>
   );

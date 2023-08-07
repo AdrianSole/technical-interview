@@ -16,13 +16,9 @@ import axios from "axios";
 // Context
 interface CharacterListState {
   listState: Character[] | undefined;
-  setListState: Dispatch<SetStateAction<Character[] | undefined>>;
-  paginationState: PaginationInfo | undefined;
-  setPaginationState: Dispatch<SetStateAction<PaginationInfo | undefined>>;
   modalIsOpen: boolean;
   modalData: Character | undefined;
   setModalData: Dispatch<SetStateAction<Character | undefined>>;
-  loadData: () => void;
   onPrev: () => void;
   onNext: () => void;
   openModal: () => void;
@@ -106,13 +102,9 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 
   const value = {
     listState,
-    setListState,
-    paginationState,
-    setPaginationState,
     modalIsOpen,
     modalData,
     setModalData,
-    loadData,
     onPrev,
     onNext,
     openModal,
