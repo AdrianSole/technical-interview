@@ -38,11 +38,23 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const [modalData, setModalData] = useState<Character>();
 
   const loadData = async () => {
-    const res = await characterService.getCharacters();
-    setListState(res.data.results);
-    setPaginationState(res.data.info);
+    const cacheData = localStorage.getItem("cacheList");
+    if (cacheData) {
+      const results = JSON.parse(cacheData).results;
+      const info = JSON.parse(cacheData).info;
 
-    //localStorage.setItem("cacheList", JSON.stringify(res.data)); // Cache main request
+      setListState(results);
+      setPaginationState(info);
+
+      // console.log(results);
+      // console.log(info);
+    } else {
+      const res = await characterService.getCharacters();
+      setListState(res.data.results);
+      setPaginationState(res.data.info);
+
+      localStorage.setItem("cacheList", JSON.stringify(res.data));
+    }
   };
 
   const onPrev = () => {
