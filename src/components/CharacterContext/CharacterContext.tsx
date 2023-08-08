@@ -42,7 +42,7 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     setListState(res.data.results);
     setPaginationState(res.data.info);
 
-    localStorage.setItem("cacheList", JSON.stringify(res.data)); // Cache main request
+    //localStorage.setItem("cacheList", JSON.stringify(res.data)); // Cache main request
   };
 
   const onPrev = () => {
@@ -61,7 +61,7 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
       setListState(res.data.results);
       setPaginationState(res.data.info);
 
-      localStorage.setItem("prevCacheData", JSON.stringify(res.data)); // Cache prevPage
+      //localStorage.setItem("prevCacheData", JSON.stringify(res.data)); // Cache prevPage
     };
 
     // Prevent to go to a previous page that doesn't exists
@@ -86,7 +86,7 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
       setListState(res.data.results);
       setPaginationState(res.data.info);
 
-      localStorage.setItem("nextCacheData", JSON.stringify(res.data)); // Cache nextPage
+      //localStorage.setItem("nextCacheData", JSON.stringify(res.data)); // Cache nextPage
     };
 
     if (nextURL != undefined) {
