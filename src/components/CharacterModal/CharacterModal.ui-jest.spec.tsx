@@ -1,9 +1,9 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { CharacterModal, CharacterModalProps } from './CharacterModal';
+import React from "react";
+import { render, fireEvent, queryByTestId } from "@testing-library/react";
+import { CharacterModal, CharacterModalProps } from "./CharacterModal";
 
 // Mock useRouter
-jest.mock('next/router', () => ({
+jest.mock("next/router", () => ({
   useRouter: () => ({
     push: jest.fn(),
   }),
@@ -21,8 +21,50 @@ const mockCharacterData: CharacterModalProps["modalData"] = {
   created: "2017-11-04T18:48:46.250Z",
 };
 
-describe('CharacterModal', () => {
-  it('should render name', () => {
+describe("CharacterModal", () => {
+  it("should have the content visible", () => {
+    const { getByTestId } = render(
+      <CharacterModal
+        modalIsOpen={true}
+        closeModal={jest.fn()}
+        modalData={mockCharacterData}
+      />
+    );
+
+    const content = getByTestId("modalContent");
+    expect(content).toBeInTheDocument();
+  });
+
+  it("shouldnt have the content visible", () => {
+    const { queryByTestId } = render(
+      <CharacterModal
+        modalIsOpen={false}
+        closeModal={jest.fn()}
+        modalData={mockCharacterData}
+      />
+    );
+
+    const content = queryByTestId("modalContent");
+    expect(content).not.toBeInTheDocument();
+  });
+
+  it("should close modal on click close button", () => {
+    const onClose = jest.fn();
+    
+    const { getByTestId } = render(
+      <CharacterModal
+        modalIsOpen={true}
+        closeModal={onClose}
+        modalData={mockCharacterData}
+      />
+    );
+    const closeButton = getByTestId("closeButton");
+    fireEvent.click(closeButton);
+
+    expect(onClose).toHaveBeenCalled();    
+  })
+
+  it("should render name", () => {
     const closeModal = jest.fn();
     const { getByText } = render(
       <CharacterModal
@@ -35,7 +77,7 @@ describe('CharacterModal', () => {
     expect(getByText(mockCharacterData.name)).toBeInTheDocument();
   });
 
-  it('should render status', () => {
+  it("should render status", () => {
     const closeModal = jest.fn();
     const { getByText } = render(
       <CharacterModal
@@ -48,7 +90,7 @@ describe('CharacterModal', () => {
     expect(getByText(mockCharacterData.status)).toBeInTheDocument();
   });
 
-  it('should render species', () => {
+  it("should render species", () => {
     const closeModal = jest.fn();
     const { getByText } = render(
       <CharacterModal
@@ -61,7 +103,7 @@ describe('CharacterModal', () => {
     expect(getByText(mockCharacterData.species)).toBeInTheDocument();
   });
 
-  it('should render gender', () => {
+  it("should render gender", () => {
     const closeModal = jest.fn();
     const { getByText } = render(
       <CharacterModal
@@ -74,7 +116,7 @@ describe('CharacterModal', () => {
     expect(getByText(mockCharacterData.gender)).toBeInTheDocument();
   });
 
-  it('should render created', () => {
+  it("should render created", () => {
     const closeModal = jest.fn();
     const { getByText } = render(
       <CharacterModal
@@ -87,7 +129,7 @@ describe('CharacterModal', () => {
     expect(getByText(mockCharacterData.created)).toBeInTheDocument();
   });
 
-  it('should render image', () => {
+  it("should render image", () => {
     const closeModal = jest.fn();
     const { getByAltText } = render(
       <CharacterModal
@@ -101,7 +143,7 @@ describe('CharacterModal', () => {
     expect(getByAltText("alt")).toHaveAttribute("src", mockCharacterData.image);
   });
 
-  it('calls closeModal when close button is clicked', () => {
+  it("calls closeModal when close button is clicked", () => {
     const closeModal = jest.fn();
     const { getByText } = render(
       <CharacterModal
@@ -111,9 +153,7 @@ describe('CharacterModal', () => {
       />
     );
 
-    fireEvent.click(getByText('close'));
+    fireEvent.click(getByText("close"));
     expect(closeModal).toHaveBeenCalled();
   });
-
- 
 });

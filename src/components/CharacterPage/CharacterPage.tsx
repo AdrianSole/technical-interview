@@ -44,7 +44,7 @@ const Bold = styled("b")`
   font-weight: bold;
 `;
 
-interface CharacterPageProps {
+export interface CharacterPageProps {
   id: number;
 }
 
@@ -62,9 +62,9 @@ export const CharacterPage = ({ id }: CharacterPageProps) => {
 
   return (
     <>
-      <Title>{characterData?.name}</Title>
-      <SubTitle>Status: {characterData?.status}</SubTitle>
-      <Content>
+      <Title data-testid="title">{characterData?.name}</Title>
+      <SubTitle data-testid="subtitle">Status: {characterData?.status}</SubTitle>
+      <Content data-testid="content">
         <InfoContainer>
           <P>
             <Bold>Species: </Bold>
@@ -106,7 +106,7 @@ export const CharacterPage = ({ id }: CharacterPageProps) => {
             <Bold>Created: </Bold>
             {characterData?.created}
           </P>
-          <Link href="/">Return home</Link>
+          <Link href="/" data-testid="link">Return home</Link>
         </InfoContainer>
         <ImgContainer>
           <img src={characterData?.image} alt="alt" />

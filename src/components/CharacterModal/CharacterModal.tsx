@@ -45,8 +45,8 @@ export const CharacterModal = ({
         contentLabel="Example"
       >
         <h2>{modalData?.name}</h2>
-        <button onClick={closeModal}>close</button>
-        <div>
+        <button data-testid="closeButton" onClick={closeModal}>close</button>
+        <div data-testid="modalContent">
           <img src={modalData?.image} alt="alt" />
           <ol>
             <li>{modalData?.status}</li>
