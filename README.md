@@ -1,7 +1,6 @@
 # PRUEBA TÉCNICA FRONTEND DEVELOPER
 
 <!-- README.md -->
-[![cov](https://AdrianSole.github.io/technical-interview/badges/coverage.svg)](https://github.com/AdrianSole/technical-interview/actions)
 
 Utilizando el el comando ***git clone[](https://github.com/iRepo/technical-interview.git)<https://github.com/iRepo/technical-interview.git> --depth*** que es un boilerplate de una aplicación de Next.js con Typescript, Jest y React testing library y la API pública de Rick y Morty (<https://rickandmortyapi.com/>) se requiere que exista un listado de personajes con paginación y al hacer clic en uno de los personajes se muestre el detalle del personaje en cuestión en una ventana modal así como un campo de búsqueda por nombre que se alimente de la API mostrando sugerencias.
 
