@@ -23,4 +23,4 @@ Dispones de 3 horas para realizar la parte básica del ejercicio desde que recib
 - [X] Styled components.
 - [ ] Storybook para el testing.
 - [ ] Sistema de caché local para las peticiones.
-- [ ] Lanzar testing a traves de github actions.
+- [X] Lanzar testing a traves de github actions.

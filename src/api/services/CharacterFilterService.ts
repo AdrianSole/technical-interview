@@ -8,3 +8,12 @@ export const getCharactersFiltered = async (name: string) => {
         return undefined;
     }
 }
+
+export const getCharactersFilteredByID = async (id: number) => {
+    try {
+        return await RM_API.get(`/character/${id}`);
+    }catch (error){
+        console.log(error);
+        return undefined;
+    }
+}
