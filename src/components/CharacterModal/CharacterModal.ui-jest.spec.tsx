@@ -1,6 +1,13 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { CharacterModal, CharacterModalProps } from "./CharacterModal";
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { CharacterModal, CharacterModalProps } from './CharacterModal';
+
+// Mock useRouter
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+  }),
+}));
 
 const mockCharacterData: CharacterModalProps["modalData"] = {
   id: 1,
@@ -14,39 +21,99 @@ const mockCharacterData: CharacterModalProps["modalData"] = {
   created: "2017-11-04T18:48:46.250Z",
 };
 
-describe("CharacterModal", () => {
-  it("should render CharacterModal correctly", () => {
+describe('CharacterModal', () => {
+  it('should render name', () => {
     const closeModal = jest.fn();
-    const modalIsOpen = true;
-
-    render(
+    const { getByText } = render(
       <CharacterModal
-        modalIsOpen={modalIsOpen}
+        modalIsOpen={true}
         closeModal={closeModal}
         modalData={mockCharacterData}
       />
     );
 
-    mockCharacterData?.name &&
-      expect(screen.getByText(mockCharacterData.name)).toBeInTheDocument();
-    mockCharacterData?.status &&
-      expect(screen.getByText(mockCharacterData.status)).toBeInTheDocument();
-    mockCharacterData?.species &&
-      expect(screen.getByText(mockCharacterData.species)).toBeInTheDocument();
-    mockCharacterData?.type &&
-      expect(screen.getByText(mockCharacterData.type)).toBeInTheDocument();
-    mockCharacterData?.gender &&
-      expect(screen.getByText(mockCharacterData.gender)).toBeInTheDocument();
-    mockCharacterData?.created &&
-      expect(screen.getByText(mockCharacterData.created)).toBeInTheDocument();
+    expect(getByText(mockCharacterData.name)).toBeInTheDocument();
+  });
 
-    const imageElement = screen.getByAltText("alt");
-    expect(imageElement).toBeInTheDocument();
-    expect(imageElement).toHaveAttribute("src", mockCharacterData.image);
+  it('should render status', () => {
+    const closeModal = jest.fn();
+    const { getByText } = render(
+      <CharacterModal
+        modalIsOpen={true}
+        closeModal={closeModal}
+        modalData={mockCharacterData}
+      />
+    );
 
-    const closeButton = screen.getByText("close");
-    fireEvent.click(closeButton);
+    expect(getByText(mockCharacterData.status)).toBeInTheDocument();
+  });
 
+  it('should render species', () => {
+    const closeModal = jest.fn();
+    const { getByText } = render(
+      <CharacterModal
+        modalIsOpen={true}
+        closeModal={closeModal}
+        modalData={mockCharacterData}
+      />
+    );
+
+    expect(getByText(mockCharacterData.species)).toBeInTheDocument();
+  });
+
+  it('should render gender', () => {
+    const closeModal = jest.fn();
+    const { getByText } = render(
+      <CharacterModal
+        modalIsOpen={true}
+        closeModal={closeModal}
+        modalData={mockCharacterData}
+      />
+    );
+
+    expect(getByText(mockCharacterData.gender)).toBeInTheDocument();
+  });
+
+  it('should render created', () => {
+    const closeModal = jest.fn();
+    const { getByText } = render(
+      <CharacterModal
+        modalIsOpen={true}
+        closeModal={closeModal}
+        modalData={mockCharacterData}
+      />
+    );
+
+    expect(getByText(mockCharacterData.created)).toBeInTheDocument();
+  });
+
+  it('should render image', () => {
+    const closeModal = jest.fn();
+    const { getByAltText } = render(
+      <CharacterModal
+        modalIsOpen={true}
+        closeModal={closeModal}
+        modalData={mockCharacterData}
+      />
+    );
+
+    expect(getByAltText("alt")).toBeInTheDocument();
+    expect(getByAltText("alt")).toHaveAttribute("src", mockCharacterData.image);
+  });
+
+  it('calls closeModal when close button is clicked', () => {
+    const closeModal = jest.fn();
+    const { getByText } = render(
+      <CharacterModal
+        modalIsOpen={true}
+        closeModal={closeModal}
+        modalData={mockCharacterData}
+      />
+    );
+
+    fireEvent.click(getByText('close'));
     expect(closeModal).toHaveBeenCalled();
   });
+
+ 
 });
