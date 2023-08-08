@@ -5,7 +5,7 @@
     "build": "next build",
     "start": "next start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:ui-jest": "jest --config=\"./jest.config.js\" --testPathPattern=\".*ui-jest\\.spec\\..*\" --testEnvironment=\"jsdom\"",
+    "test:ui-jest": "jest --config=\"./jest.config.js\" --testPathPattern=\".*ui-jest\\.spec\\..*\" --testEnvironment=\"jsdom\" --collectCoverage",
     "test:unit": "jest --config=\"./jest.config.js\" --testPathPattern=\".*unit\\.spec\\..*\" --env=node",
     "test:ci": "jest --ci"
   },
@@ -38,7 +38,7 @@
     "collectCoverage": true,
     "coverageReporters": [
       "text",
-      "cobertura"
+      "lcov"
     ]
   }
 }

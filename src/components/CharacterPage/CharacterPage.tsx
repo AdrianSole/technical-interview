@@ -54,6 +54,8 @@ export const CharacterPage = ({ id }: CharacterPageProps) => {
   const loadCharacterData = async () => {
     const res = await characterFilterService.getCharactersFilteredByID(id);
     setCharacterData(res?.data);
+
+    localStorage.setItem("cacheCharacterPage", JSON.stringify(res?.data));
   };
 
   useEffect(() => {
@@ -63,7 +65,9 @@ export const CharacterPage = ({ id }: CharacterPageProps) => {
   return (
     <>
       <Title data-testid="title">{characterData?.name}</Title>
-      <SubTitle data-testid="subtitle">Status: {characterData?.status}</SubTitle>
+      <SubTitle data-testid="subtitle">
+        Status: {characterData?.status}
+      </SubTitle>
       <Content data-testid="content">
         <InfoContainer>
           <P>
@@ -106,12 +110,13 @@ export const CharacterPage = ({ id }: CharacterPageProps) => {
             <Bold>Created: </Bold>
             {characterData?.created}
           </P>
-          <Link href="/" data-testid="link">Return home</Link>
+          <Link href="/" data-testid="link">
+            Return home
+          </Link>
         </InfoContainer>
         <ImgContainer>
           <img src={characterData?.image} alt="alt" />
         </ImgContainer>
-        
       </Content>
     </>
   );
