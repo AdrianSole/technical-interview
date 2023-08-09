@@ -3,6 +3,7 @@ import { CharacterSearch } from "../CharacterSearch";
 import styled from "@emotion/styled";
 
 import mainIcon from "../../assets/mainIcon.png";
+import Link from "next/link";
 
 const RM_Header = styled("header")`
   top: 0;
@@ -38,7 +39,9 @@ export const Header = () => {
     <>
       <RM_Header data-testid="header">
         <ImgContainer>
-          <Image src={mainIcon} width={50} alt="mainIcon" />
+          <Link href="/" data-testid="link">
+            <Image src={mainIcon} width={50} alt="mainIcon" />
+          </Link>
         </ImgContainer>
         <H1>Rick & Morty Character List</H1>
         <SearchContainer>

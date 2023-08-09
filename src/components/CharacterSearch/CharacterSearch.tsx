@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { Character } from "src/api/types/Character";
 import styles from "./CharacterSearch.module.css";
 import * as CharacterFilterService from "../../api/services/CharacterFilterService";
+import { useRouter } from "next/router";
 
 const SearchContainer = styled("div")`
   width: 30rem;
@@ -75,6 +76,17 @@ export const CharacterSearch = () => {
     filterCharacters();
   };
 
+  const router = useRouter();
+  const openPage = (id: number) => {
+    router.push({
+      pathname: "/CharacterDetails",
+      query: {
+        character_id: id,
+      },
+    });
+    setSearchValue("");
+  };
+
   return (
     <>
       <SearchContainer>
@@ -99,7 +111,10 @@ export const CharacterSearch = () => {
             data-testid="suggestions"
           >
             {suggestions?.map((suggestion) => (
-              <SuggestionDiv key={suggestion.id}>
+              <SuggestionDiv
+                key={suggestion.id}
+                onClick={() => openPage(suggestion.id)}
+              >
                 {suggestion.name}
               </SuggestionDiv>
             ))}

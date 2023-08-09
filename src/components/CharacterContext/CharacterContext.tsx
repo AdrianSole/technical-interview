@@ -34,9 +34,20 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     const prevURL = paginationState?.prev;
 
     const loadPrevData = async () => {
-      const res = await getOnChangePage(prevURL);
-      setListState(res.data.results);
-      setPaginationState(res.data.info);
+      const cache = localStorage.getItem("cachePrevPage");
+      if (cache) {
+        const results = JSON.parse(cache).results;
+        const info = JSON.parse(cache).info;
+
+        setListState(results);
+        setPaginationState(info);
+      } else {
+        const res = await getOnChangePage(prevURL);
+        setListState(res.data.results);
+        setPaginationState(res.data.info);
+
+        localStorage.setItem("cachePrevPage", JSON.stringify(res.data));
+      }
     };
 
     if (prevURL !== null) {
@@ -48,9 +59,20 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     const nextURL = paginationState?.next;
 
     const LoadNextData = async () => {
-      const res = await getOnChangePage(nextURL);
-      setListState(res.data.results);
-      setPaginationState(res.data.info);
+      const cache = localStorage.getItem("cacheNextPage");
+      if (cache) {
+        const results = JSON.parse(cache).results;
+        const info = JSON.parse(cache).info;
+
+        setListState(results);
+        setPaginationState(info);
+      } else {
+        const res = await getOnChangePage(nextURL);
+        setListState(res.data.results);
+        setPaginationState(res.data.info);
+
+        localStorage.setItem("cacheNextPage", JSON.stringify(res.data));
+      }
     };
 
     if (nextURL !== null) {

@@ -54,8 +54,6 @@ export const CharacterPage = ({ id }: CharacterPageProps) => {
   const loadCharacterData = async () => {
     const res = await characterFilterService.getCharactersFilteredByID(id);
     setCharacterData(res?.data);
-
-    //localStorage.setItem("cacheCharacterPage", JSON.stringify(res?.data));
   };
 
   useEffect(() => {
