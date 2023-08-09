@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { Pagination } from "../Pagination";
 import { useCharacterList } from "../CharacterContext";
 import { CharacterModal } from "../CharacterModal";
+import { useState } from "react";
+import { Character } from "src/api/types/Character";
 
 const ListContainer = styled("div")`
   display: flex;
@@ -34,6 +36,12 @@ const ListItem = styled("li")`
 
 export const CharacterList = () => {
   const context = useCharacterList();
+  const [isOpen, setIsOpen] = useState(false);
+  const [characterModal, setCharacterModal] = useState<Character>();
+
+  const closeModal = (modalState: boolean) => {
+    setIsOpen(modalState);
+  }
 
   return (
     <>
@@ -44,19 +52,17 @@ export const CharacterList = () => {
               data-testid="listItem"
               key={characters.id}
               onClick={() => {
-                context.openModal();
-                context.setModalData(characters);
+                setIsOpen(true);
+                setCharacterModal(characters);
               }}
             >
               {characters.name}
             </ListItem>
           ))}
         </List>
-        <CharacterModal
-          modalIsOpen={context.modalIsOpen}
-          closeModal={context.closeModal}
-          modalData={context.modalData}
-        />
+        {isOpen && (
+          <CharacterModal characterData={characterModal} isOpen={isOpen} closeModal={closeModal} />
+        )}
         <Pagination onPrev={context.onPrev} onNext={context.onNext} />
       </ListContainer>
     </>

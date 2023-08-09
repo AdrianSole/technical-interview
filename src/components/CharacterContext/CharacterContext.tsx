@@ -3,26 +3,19 @@ import {
   PropsWithChildren,
   useState,
   useEffect,
-  Dispatch,
-  SetStateAction,
   createContext,
   useContext,
 } from "react";
 import { Character } from "src/api/types/Character";
 import * as characterService from "../../api/services/CharacterService";
 import { PaginationInfo } from "src/api/types/PaginationInfo";
-import axios from "axios";
+import { getOnChangePage } from "src/utils/getOnChangePage";
 
 // Context
 interface CharacterListState {
   listState: Character[] | undefined;
-  modalIsOpen: boolean;
-  modalData: Character | undefined;
-  setModalData: Dispatch<SetStateAction<Character | undefined>>;
   onPrev: () => void;
   onNext: () => void;
-  openModal: () => void;
-  closeModal: () => void;
 }
 
 const CharacterListContext = createContext<CharacterListState | undefined>(
@@ -34,9 +27,6 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const [listState, setListState] = useState<Character[]>();
   const [paginationState, setPaginationState] = useState<PaginationInfo>();
 
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalData, setModalData] = useState<Character>();
-
   const loadData = async () => {
     const cacheData = localStorage.getItem("cacheList");
     if (cacheData) {
@@ -45,9 +35,6 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 
       setListState(results);
       setPaginationState(info);
-
-      // console.log(results);
-      // console.log(info);
     } else {
       const res = await characterService.getCharacters();
       setListState(res.data.results);
@@ -60,16 +47,8 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const onPrev = () => {
     const prevURL = paginationState?.prev;
 
-    const prevAPI = axios.create({
-      baseURL: prevURL,
-    });
-
-    const getPrevCharacters = async () => {
-      return await prevAPI.get("");
-    };
-
     const loadPrevData = async () => {
-      const res = await getPrevCharacters();
+      const res = await getOnChangePage(prevURL);
       setListState(res.data.results);
       setPaginationState(res.data.info);
 
@@ -77,7 +56,7 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     };
 
     // Prevent to go to a previous page that doesn't exists
-    if (prevURL != undefined) {
+    if (prevURL !== null) {
       loadPrevData();
     }
   };
@@ -85,33 +64,17 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const onNext = () => {
     const nextURL = paginationState?.next;
 
-    const nextAPI = axios.create({
-      baseURL: nextURL,
-    });
-
-    const getNextCharacters = async () => {
-      return await nextAPI.get("");
-    };
-
     const LoadNextData = async () => {
-      const res = await getNextCharacters();
+      const res = await getOnChangePage(nextURL);
       setListState(res.data.results);
       setPaginationState(res.data.info);
 
       //localStorage.setItem("nextCacheData", JSON.stringify(res.data)); // Cache nextPage
     };
 
-    if (nextURL != undefined) {
+    if (nextURL !== null) {
       LoadNextData();
     }
-  };
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -120,13 +83,8 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 
   const value = {
     listState,
-    modalIsOpen,
-    modalData,
-    setModalData,
     onPrev,
     onNext,
-    openModal,
-    closeModal,
   };
 
   return (

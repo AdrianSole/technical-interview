@@ -2,11 +2,10 @@ import { useRouter } from "next/router";
 import Modal from "react-modal";
 import { Character } from "src/api/types/Character";
 
-// Export interface to test
 export interface CharacterModalProps {
-  modalIsOpen: boolean;
-  closeModal: () => void;
-  modalData: Character | undefined;
+  characterData: Character | undefined;
+  isOpen: boolean;
+  closeModal: (modalState:boolean) => void;
 }
 
 const customStyles = {
@@ -21,39 +20,41 @@ const customStyles = {
 };
 
 export const CharacterModal = ({
-  modalIsOpen,
+  characterData,
+  isOpen,
   closeModal,
-  modalData,
 }: CharacterModalProps) => {
   const router = useRouter();
-
   const handleClick = () => {
     router.push({
       pathname: "/CharacterDetails",
       query: {
-        character_id: modalData?.id
-      }
+        character_id: characterData?.id,
+      },
     });
   };
+
   return (
     <>
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
+        isOpen={isOpen}
+        onRequestClose={() => closeModal(false)}
         ariaHideApp={false}
         style={customStyles}
         contentLabel="Example"
       >
-        <h2>{modalData?.name}</h2>
-        <button data-testid="closeButton" onClick={closeModal}>close</button>
+        <h2>{characterData?.name}</h2>
+        <button data-testid="closeButton" onClick={() => closeModal(false)}>
+          close
+        </button>
         <div data-testid="modalContent">
-          <img src={modalData?.image} alt="alt" />
+          <img src={characterData?.image} alt="alt" />
           <ol>
-            <li>{modalData?.status}</li>
-            <li>{modalData?.species}</li>
-            <li>{modalData?.type}</li>
-            <li>{modalData?.gender}</li>
-            <li>{modalData?.created}</li>
+            <li>{characterData?.status}</li>
+            <li>{characterData?.species}</li>
+            <li>{characterData?.type}</li>
+            <li>{characterData?.gender}</li>
+            <li>{characterData?.created}</li>
           </ol>
         </div>
 

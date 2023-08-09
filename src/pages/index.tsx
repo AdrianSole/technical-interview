@@ -9,12 +9,9 @@ export default function Home() {
         <title>Rick & Morty Character List</title>
       </Head>
 
-
-      <main>
-        <CharacterProvider>
-          <CharacterList />
-        </CharacterProvider>
-      </main>
+      <CharacterProvider>
+        <CharacterList />
+      </CharacterProvider>
     </>
   );
 }
