@@ -1,8 +1,12 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { CharacterSearch } from "./CharacterSearch";
+import mockRouter from 'next-router-mock';
+
+jest.mock('next/router', () => jest.requireActual('next-router-mock'))
 
 describe("CharacterSearch", () => {
   it("should update suggestions", async () => {
+    mockRouter.push("/initial-path");
     render(<CharacterSearch />);
 
     const searchInput = screen.getByPlaceholderText("Search a character...");
@@ -14,6 +18,15 @@ describe("CharacterSearch", () => {
       expect(suggestion1).toBeInTheDocument();
       expect(suggestion2).toBeInTheDocument();
     });
+  });
+
+  it("should render the component", async () => {
+    const { getByTestId } = render(<CharacterSearch />);
+    const textBox = getByTestId("textbox");
+    const suggestions = getByTestId("suggestions");
+
+    expect(textBox).toBeInTheDocument();
+    expect(suggestions).toBeInTheDocument();
   });
 
   /*
