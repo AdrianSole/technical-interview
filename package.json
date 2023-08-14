@@ -33,12 +33,5 @@
     "jest": "28.1.0",
     "jest-environment-jsdom": "28.1.0",
     "typescript": "4.6.4"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "coverageReporters": [
-      "text",
-      "lcov"
-    ]
   }
 }

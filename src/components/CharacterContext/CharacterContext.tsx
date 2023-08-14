@@ -6,6 +6,7 @@ import {
   useContext,
 } from "react";
 import { Character } from "src/api/types/Character";
+import { useCacheID } from "src/hooks/useCacheID";
 import { useLocalStorage } from "src/hooks/useLocalStorage";
 
 // Context
@@ -24,21 +25,24 @@ export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const { listState, paginationState, loadData, loadDifPageData } =
     useLocalStorage();
 
+  const { createPage } = useCacheID();
+
+  /** Click <-, returns prev page */
   const onPrev = () => {
     const prevURL = paginationState?.prev;
-    let pageNumOnCache = Math.floor(Math.random() * 100000);
-    const cacheID = "cachePrevPage" + pageNumOnCache;
+    const cacheID = createPage("cachePrevPage");
     if (prevURL !== null) {
       loadDifPageData(prevURL, cacheID);
     }
   };
 
+  /** Click ->, returns next page */
   const onNext = () => {
     const nextURL = paginationState?.next;
-    let pageNumOnCache = Math.floor(Math.random() * 100000);
-    const cache = "cacheNextPage" + pageNumOnCache;
+    const cacheID = createPage("cacheNextPage");
+    console.log(cacheID);
     if (nextURL !== null) {
-      loadDifPageData(nextURL, cache);
+      loadDifPageData(nextURL, cacheID);
     }
   };
 
