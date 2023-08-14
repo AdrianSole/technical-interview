@@ -28,20 +28,4 @@ describe("CharacterSearch", () => {
     expect(textBox).toBeInTheDocument();
     expect(suggestions).toBeInTheDocument();
   });
-
-  /*
-  it("should hide suggestions on blur", () => {
-    render(<CharacterSearch />);
-
-    const searchInput = screen.getByTestId("textbox");
-    fireEvent.focus(searchInput);
-
-    const suggestions = screen.getByTestId("suggestions");
-    expect(suggestions).not.toHaveClass("hidden");
-
-    fireEvent.blur(searchInput);
-
-    // FIXME: Expected the element to have class: hidden, Received: suggestions false
-    expect(suggestions).toHaveClass("h
-    */
 });

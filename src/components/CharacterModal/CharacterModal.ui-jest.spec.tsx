@@ -48,20 +48,31 @@ describe("CharacterModal", () => {
     expect(content).not.toBeInTheDocument();
   });
 
-  // it("should close modal on click close button", () => {
-  //   const onClose = jest.fn();
-    
-  //   const { getByTestId } = render(
-  //     <CharacterModal
-  //       closeModal={jest.fn()}
-  //       isOpen={true}
-  //       characterData={mockCharacterData}
-  //     />
-  //   );
-  //   const closeButton = getByTestId("closeButton");
-  //   fireEvent.click(closeButton);
+  it("should close modal on click close button", () => {
+    const onClose = jest.fn();
 
-  //   expect(onClose).toHaveBeenCalled();    
-  // })
+    const { getByTestId } = render(
+      <CharacterModal
+        closeModal={onClose}
+        isOpen={true}
+        characterData={mockCharacterData}
+      />
+    );
+    const closeButton = getByTestId("closeButton");
+    fireEvent.click(closeButton);
+    expect(onClose).toHaveBeenCalled();
+  });
 
+  it("should redirect to the dinamyc page", () => {
+    const { getByTestId } = render(
+      <CharacterModal
+        closeModal={jest.fn()}
+        isOpen={true}
+        characterData={mockCharacterData}
+      />
+    );
+
+    const moreContentButton = getByTestId("moreContent");
+    fireEvent.click(moreContentButton);
+  })
 });

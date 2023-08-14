@@ -58,7 +58,7 @@ export const CharacterModal = ({
           </ol>
         </div>
 
-        <button onClick={handleClick}>+ info</button>
+        <button data-testid="moreContent" onClick={handleClick}>+ info</button>
       </Modal>
     </>
   );
