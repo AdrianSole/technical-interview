@@ -26,21 +26,6 @@ const TextBox = styled("input")`
   }
 `;
 
-const PortalButton = styled("button")`
-  background-color: #99e599;
-  border: none;
-  color: white;
-  margin: 15px;
-  display: inline-block;
-  overflow: hidden;
-  &:hover {
-    -webkit-transition: all 0.9s ease;
-    -moz-transition: all 0.9s ease;
-    -ms-transition: all 0.9s ease;
-    transform: scale(1.35);
-  }
-`;
-
 const SuggestionDiv = styled("div")`
   cursor: pointer;
   box-sizing: border-box;

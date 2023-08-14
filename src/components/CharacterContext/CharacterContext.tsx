@@ -6,7 +6,6 @@ import {
   useContext,
 } from "react";
 import { Character } from "src/api/types/Character";
-import { getOnChangePage } from "src/utils/getOnChangePage";
 import { useLocalStorage } from "src/hooks/useLocalStorage";
 
 // Context
@@ -22,61 +21,24 @@ const CharacterListContext = createContext<CharacterListState | undefined>(
 
 // Provider
 export const CharacterProvider: FC<PropsWithChildren<any>> = ({ children }) => {
-  const {
-    listState,
-    setListState,
-    paginationState,
-    setPaginationState,
-    loadData,
-  } = useLocalStorage();
+  const { listState, paginationState, loadData, loadDifPageData } =
+    useLocalStorage();
 
   const onPrev = () => {
     const prevURL = paginationState?.prev;
-
-    const loadPrevData = async () => {
-      const cache = localStorage.getItem("cachePrevPage");
-      if (cache) {
-        const results = JSON.parse(cache).results;
-        const info = JSON.parse(cache).info;
-
-        setListState(results);
-        setPaginationState(info);
-      } else {
-        const res = await getOnChangePage(prevURL);
-        setListState(res.data.results);
-        setPaginationState(res.data.info);
-
-        localStorage.setItem("cachePrevPage", JSON.stringify(res.data));
-      }
-    };
-
+    let pageNumOnCache = Math.floor(Math.random() * 100000);
+    const cacheID = "cachePrevPage" + pageNumOnCache;
     if (prevURL !== null) {
-      loadPrevData();
+      loadDifPageData(prevURL, cacheID);
     }
   };
 
   const onNext = () => {
     const nextURL = paginationState?.next;
-
-    const LoadNextData = async () => {
-      const cache = localStorage.getItem("cacheNextPage");
-      if (cache) {
-        const results = JSON.parse(cache).results;
-        const info = JSON.parse(cache).info;
-
-        setListState(results);
-        setPaginationState(info);
-      } else {
-        const res = await getOnChangePage(nextURL);
-        setListState(res.data.results);
-        setPaginationState(res.data.info);
-
-        localStorage.setItem("cacheNextPage", JSON.stringify(res.data));
-      }
-    };
-
+    let pageNumOnCache = Math.floor(Math.random() * 100000);
+    const cache = "cacheNextPage" + pageNumOnCache;
     if (nextURL !== null) {
-      LoadNextData();
+      loadDifPageData(nextURL, cache);
     }
   };
 
