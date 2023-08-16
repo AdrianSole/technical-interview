@@ -9,7 +9,7 @@ import { PaginationInfo } from "src/api/types/PaginationInfo";
 
 const ListContainer = styled("div")`
   display: flex;
-  background-color: #40e0d0;
+  background-color: #76be2e;
   align-items: center;
   margin: 10px;
 `;
@@ -18,7 +18,8 @@ const List = styled("ul")`
   list-style: none;
   padding: 0;
   margin: 10px;
-  background-color: #fff;
+  background-color: #99e599;
+  color: #423460;
   width: 100%;
 `;
 
@@ -26,13 +27,12 @@ const ListItem = styled("li")`
   display: flex;
   align-items: center;
   position: relative;
-  padding: 5px;
+  padding: 10px;
   padding-left: 34px;
-  margin: 10px;
   &:hover {
     cursor: pointer;
-    background-color: #d3d3d3;
-    color: blue;
+    color: #f17b85;
+    background-color: #423460;
   }
 `;
 
@@ -44,24 +44,24 @@ export const CharacterList = ({
   const [characterModal, setCharacterModal] = useState<Character>();
   const [mainList, setMainList] = useState<Character[]>(listState);
   const [pagination, setPagination] = useState<PaginationInfo>(paginationState);
-  
+
   const onPrev = async () => {
     const prevURL = pagination.prev;
-    if(prevURL!==null){
+    if (prevURL !== null) {
       const res = await getOnChangePage(prevURL);
       setMainList(res.data.results);
       setPagination(res.data.info);
     }
-  }
+  };
 
   const onNext = async () => {
     const nextURL = pagination.next;
-    if(nextURL!==null){
+    if (nextURL !== null) {
       const res = await getOnChangePage(nextURL);
       setMainList(res.data.results);
       setPagination(res.data.info);
     }
-  }
+  };
 
   const closeModal = (modalState: boolean) => {
     setIsOpen(modalState);

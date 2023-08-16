@@ -8,13 +8,11 @@ export interface CharacterDetailsProps {
   characterData: Character | null;
 }
 
-export default function character_id({
-  characterData,
-}: CharacterDetailsProps) {
+export default function character_id({ characterData }: CharacterDetailsProps) {
   return (
     <>
       <Head>
-        <title>Character Details</title>
+        <title>{characterData?.name}</title>
       </Head>
       <CharacterPage characterData={characterData} />
     </>
@@ -24,7 +22,6 @@ export default function character_id({
 export const getStaticProps: GetStaticProps<CharacterDetailsProps> = async ({
   params,
 }) => {
-  console.log(params);
   const id = Number(params?.character_id);
   const res = await characterFilterService.getCharactersFilteredByID(id);
   const characterData = res?.data || null;
@@ -36,10 +33,11 @@ export const getStaticProps: GetStaticProps<CharacterDetailsProps> = async ({
   };
 };
 
-export const getStaticPaths: GetStaticPaths<{ character_id: string }> = async () => {
-
+export const getStaticPaths: GetStaticPaths<{
+  character_id: string;
+}> = async () => {
   return {
-      paths: [], //indicates that no page needs be created at build time
-      fallback: 'blocking' //indicates the type of fallback
-  }
-}
+    paths: [], //indicates that no page needs be created at build time
+    fallback: "blocking", //indicates the type of fallback
+  };
+};

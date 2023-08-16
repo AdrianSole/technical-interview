@@ -3,7 +3,7 @@ import MainIcon from "../../assets/mainIcon.png";
 import styled from "@emotion/styled";
 
 const FooterStyled = styled("footer")`
-  background-color: #99e599;
+  background-color: #7ccb2b;
   position: fixed;
   bottom: 0;
   width: 100%;

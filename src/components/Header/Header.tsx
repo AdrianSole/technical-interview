@@ -8,7 +8,7 @@ import Link from "next/link";
 const RM_Header = styled("header")`
   top: 0;
   left: 0;
-  background-color: #99e599;
+  background-color: #7ccb2b;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -22,7 +22,7 @@ const ImgContainer = styled("div")`
 `;
 
 const H1 = styled("h1")`
-  color: #fff;
+  color: #423460;
   display: flex;
   font-size: 24px;
   align-items: center;
@@ -31,7 +31,7 @@ const H1 = styled("h1")`
 const SearchContainer = styled("div")`
   display: flex;
   align-items: center;
-  margin-right: 10px;
+  
 `;
 
 export const Header = () => {

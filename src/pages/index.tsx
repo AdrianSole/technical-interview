@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { CharacterList } from "src/components/CharacterList";
-import { CharacterProvider } from "src/components/CharacterContext";
 import { GetServerSideProps } from "next";
 import { Character } from "src/api/types/Character";
 import { PaginationInfo } from "src/api/types/PaginationInfo";
@@ -31,8 +30,7 @@ export const getServerSideProps: GetServerSideProps<
 > = async () => {
   try {
     const res = await characterService.getCharacters();
-    let { results, info } = res.data;
-
+    const { results, info } = res.data;
     return {
       props: {
         listState: results,

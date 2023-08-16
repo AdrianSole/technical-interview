@@ -13,13 +13,15 @@ const SearchContainer = styled("div")`
 `;
 
 const TextBox = styled("input")`
-  border: 1px solid #f3f3f3;
+  border: 3px solid #f17b85;
+  background-color: #99e599;
+  color: #423460;
   height: 2rem;
   outline: none;
-  box-sizing: border-box;
   padding: 1px 10px;
   transition: 0.2s ease-in-out;
   width: 100%;
+  margin-left: 100px;
   &:focus {
     border: 1px solid blue;
     transition: 0.2s ease-in-out;
@@ -34,7 +36,8 @@ const SuggestionDiv = styled("div")`
   display: flex;
   align-items: center;
   &:hover {
-    background-color: #f3f3f3;
+    color: #f17b85;
+    background-color: #423460;
   }
 `;
 

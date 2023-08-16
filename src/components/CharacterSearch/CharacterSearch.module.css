@@ -1,8 +1,11 @@
 .suggestions {
   overflow-y: scroll;
-  border: 1px solid #f3f3f3;
-  background-color: white;
+  background-color: #99e599;
+  border: 1.5px solid #f17b85;
+  color: #423460;
   max-height: 20rem;
+  margin-left:100px;
+  width: 305px;
   height: fit-content;
   position: absolute;
   z-index: 10;
@@ -10,4 +13,5 @@
 
 .suggestions.hidden {
   visibility: hidden;
+  color: #7ccb2b;
 }
