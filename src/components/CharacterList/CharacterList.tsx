@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import { Pagination } from "../Pagination";
-import { useCharacterList } from "../CharacterContext";
 import { CharacterModal } from "../CharacterModal";
 import { useState } from "react";
 import { Character } from "src/api/types/Character";
+import { CharacterListProps } from "@/pages/index";
+import { getOnChangePage } from "src/utils/getOnChangePage";
+import { PaginationInfo } from "src/api/types/PaginationInfo";
 
 const ListContainer = styled("div")`
   display: flex;
@@ -34,20 +36,42 @@ const ListItem = styled("li")`
   }
 `;
 
-export const CharacterList = () => {
-  const context = useCharacterList();
+export const CharacterList = ({
+  listState,
+  paginationState,
+}: CharacterListProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [characterModal, setCharacterModal] = useState<Character>();
+  const [mainList, setMainList] = useState<Character[]>(listState);
+  const [pagination, setPagination] = useState<PaginationInfo>(paginationState);
+  
+  const onPrev = async () => {
+    const prevURL = pagination.prev;
+    if(prevURL!==null){
+      const res = await getOnChangePage(prevURL);
+      setMainList(res.data.results);
+      setPagination(res.data.info);
+    }
+  }
+
+  const onNext = async () => {
+    const nextURL = pagination.next;
+    if(nextURL!==null){
+      const res = await getOnChangePage(nextURL);
+      setMainList(res.data.results);
+      setPagination(res.data.info);
+    }
+  }
 
   const closeModal = (modalState: boolean) => {
     setIsOpen(modalState);
-  }
+  };
 
   return (
     <>
       <ListContainer>
         <List>
-          {context.listState?.map((characters) => (
+          {mainList?.map((characters) => (
             <ListItem
               data-testid="listItem"
               key={characters.id}
@@ -61,9 +85,13 @@ export const CharacterList = () => {
           ))}
         </List>
         {isOpen && (
-          <CharacterModal characterData={characterModal} isOpen={isOpen} closeModal={closeModal} />
+          <CharacterModal
+            characterData={characterModal}
+            isOpen={isOpen}
+            closeModal={closeModal}
+          />
         )}
-        <Pagination onPrev={context.onPrev} onNext={context.onNext} />
+        <Pagination onPrev={onPrev} onNext={onNext} />
       </ListContainer>
     </>
   );

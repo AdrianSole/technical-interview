@@ -3,6 +3,7 @@ import * as characterFilterService from "../../api/services/CharacterFilterServi
 import { Character } from "src/api/types/Character";
 import styled from "@emotion/styled";
 import Link from "next/link";
+import { CharacterDetailsProps } from "@/pages/character/[character_id]";
 
 const Title = styled("h1")`
   font-size: 24px;
@@ -44,22 +45,7 @@ const Bold = styled("b")`
   font-weight: bold;
 `;
 
-export interface CharacterPageProps {
-  id: number;
-}
-
-export const CharacterPage = ({ id }: CharacterPageProps) => {
-  const [characterData, setCharacterData] = useState<Character>();
-
-  const loadCharacterData = async () => {
-    const res = await characterFilterService.getCharactersFilteredByID(id);
-    setCharacterData(res?.data);
-  };
-
-  useEffect(() => {
-    loadCharacterData();
-  });
-
+export const CharacterPage = ({ characterData }: CharacterDetailsProps) => {
   return (
     <>
       <Title data-testid="title">{characterData?.name}</Title>

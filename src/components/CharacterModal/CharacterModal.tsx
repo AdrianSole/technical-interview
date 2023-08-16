@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import { Character } from "src/api/types/Character";
@@ -24,16 +25,6 @@ export const CharacterModal = ({
   isOpen,
   closeModal,
 }: CharacterModalProps) => {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push({
-      pathname: "/CharacterDetails",
-      query: {
-        character_id: characterData?.id,
-      },
-    });
-  };
-
   return (
     <>
       <Modal
@@ -58,9 +49,16 @@ export const CharacterModal = ({
           </ol>
         </div>
 
-        <button data-testid="moreContent" onClick={handleClick}>
-          + info
-        </button>
+        <Link
+          href={{
+            pathname: "/character/[character_id]",
+            query: {
+              character_id: characterData?.id,
+            },
+          }}
+        >
+          +info
+        </Link>
       </Modal>
     </>
   );
