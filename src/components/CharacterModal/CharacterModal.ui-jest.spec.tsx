@@ -49,8 +49,8 @@ describe("CharacterModal", () => {
     const content = queryByTestId("modalContent");
     expect(content).not.toBeInTheDocument();
   });
-
-  /* it("should close modal on click close button", () => {
+  /*
+  it("should close modal on click close button", () => {
     const onClose = jest.fn();
 
     const { getByTestId } = render(

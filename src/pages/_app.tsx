@@ -7,11 +7,11 @@ import styles from "./App.module.css";
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-    <div className={styles.Container}>
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
-    </div>
+      <div className={styles.Container}>
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
+      </div>
     </>
   );
 }

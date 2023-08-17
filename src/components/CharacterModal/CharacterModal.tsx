@@ -18,7 +18,6 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     background: "#7ccb2b",
-    color: "",
   },
 };
 
@@ -46,6 +45,8 @@ const CloseButton = styled("button")`
 
 const ProfImg = styled("img")`
   border: 2px solid #f17b85;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 const Ol = styled("ol")`

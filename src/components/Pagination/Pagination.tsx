@@ -16,9 +16,6 @@ const ButtonStyled = styled("button")`
     -ms-transition:all .9s ease;
     transform:scale(1.35);
   }
-  &:active {
-    background-color: red;
-  }
 `;
 
 interface NavigationProps {

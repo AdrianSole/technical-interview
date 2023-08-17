@@ -25,6 +25,7 @@ const H1 = styled("h1")`
   color: #423460;
   display: flex;
   font-size: 24px;
+  font-weight: bold;
   align-items: center;
 `;
 
