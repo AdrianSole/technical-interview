@@ -4,7 +4,7 @@ import Image from "next/image";
 import styled from "@emotion/styled";
 
 const ButtonStyled = styled("button")`
-  background-color: #40e0d0;
+  background-color: #76be2e;
   border: none;
   color: white;
   margin: 15px;
@@ -41,12 +41,12 @@ export const Pagination = ({ onPrev, onNext }: NavigationProps) => {
         <ul>
           <li>
             <ButtonStyled onClick={handlePrevClick} data-testid="previous">
-              <Image src={Previous} alt="Previous" width={25} />
+              <Image src={Previous} alt="Previous" width={35} />
             </ButtonStyled>
           </li>
           <li>
             <ButtonStyled onClick={handleNextClick} data-testid="next">
-              <Image src={Next} alt="Next" width={25} />
+              <Image src={Next} alt="Next" width={35} />
             </ButtonStyled>
           </li>
         </ul>

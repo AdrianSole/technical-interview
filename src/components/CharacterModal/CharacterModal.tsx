@@ -1,5 +1,5 @@
+import styled from "@emotion/styled";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Modal from "react-modal";
 import { Character } from "src/api/types/Character";
 
@@ -17,8 +17,53 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    background: "#7ccb2b",
+    color: "",
   },
 };
+
+const H2 = styled("h2")`
+  color: #423460;
+  display: flex;
+  font-size: 24px;
+  text-align: center;
+  padding-bottom: 25px;
+`;
+
+const CloseButton = styled("button")`
+  background-color: #e57373;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  margin-left: 17rem;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #f44336;
+  }
+`;
+
+const ProfImg = styled("img")`
+  border: 2px solid #f17b85;
+`;
+
+const Ol = styled("ol")`
+  background-color: #99e599;
+  border: 2px solid #f17b85;
+  color: #423460;
+  padding-top: 5px;
+  li {
+    padding-left: 10px;
+    padding-bottom: 5px;
+  }
+`;
+
+const Info = styled("div")`
+font-size: 18px;
+  margin-left: 15rem;
+  padding-top: 10px;
+`;
 
 export const CharacterModal = ({
   characterData,
@@ -34,31 +79,35 @@ export const CharacterModal = ({
         style={customStyles}
         contentLabel="Example"
       >
-        <h2>{characterData?.name}</h2>
-        <button data-testid="closeButton" onClick={() => closeModal(false)}>
-          close
-        </button>
+        <CloseButton
+          data-testid="closeButton"
+          onClick={() => closeModal(false)}
+        >
+          X
+        </CloseButton>
+        <H2>{characterData?.name}</H2>
         <div data-testid="modalContent">
-          <img src={characterData?.image} alt="alt" />
-          <ol>
+          <ProfImg src={characterData?.image} alt="alt" />
+          <Ol>
             <li>{characterData?.status}</li>
             <li>{characterData?.species}</li>
-            <li>{characterData?.type}</li>
             <li>{characterData?.gender}</li>
-            <li>{characterData?.created}</li>
-          </ol>
+            <li>{characterData?.type}</li>
+          </Ol>
         </div>
 
-        <Link
-          href={{
-            pathname: "/character/[character_id]",
-            query: {
-              character_id: characterData?.id,
-            },
-          }}
-        >
-          +info
-        </Link>
+        <Info>
+          <Link
+            href={{
+              pathname: "/character/[character_id]",
+              query: {
+                character_id: characterData?.id,
+              },
+            }}
+          >
+            Más Info
+          </Link>
+        </Info>
       </Modal>
     </>
   );
