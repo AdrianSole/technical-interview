@@ -7,7 +7,7 @@ import { CharacterPage } from "src/components/CharacterPage";
 import * as characterFilterService from "../../api/services/CharacterFilterService";
 
 export interface CharacterDetailsProps {
-  characterData: Character | null;
+  characterData: Character | null | undefined;
 }
 
 export default function character_id({ characterData }: CharacterDetailsProps) {

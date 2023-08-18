@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CharacterDetailsProps } from "src/mypages/character/[character_id]";
 import Portal from "../../assets/portal.png";
 import Image from "next/image";
+import { getStatusImg } from "src/utils/getStatusImg";
 
 const Container = styled("div")`
   background-color: #99e599;
@@ -72,7 +73,9 @@ export const CharacterPage = ({ characterData }: CharacterDetailsProps) => {
     <>
       <Container>
         <Title data-testid="title">{characterData?.name}</Title>
-        <SubTitle data-testid="subtitle">{characterData?.status}</SubTitle>
+        <SubTitle data-testid="subtitle">
+          <Image src={getStatusImg(characterData?.status)} alt="" />
+        </SubTitle>
         <Content data-testid="content">
           <InfoContainer>
             <P>

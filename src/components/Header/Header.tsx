@@ -16,7 +16,6 @@ const RM_Header = styled("header")`
   justify-content: space-between;
   height: 60px;
   padding: 0 10px;
-  margin-bottom: 20px;
 `;
 
 const ImgContainer = styled("div")`

@@ -6,20 +6,29 @@ import styled from "@emotion/styled";
 
 const FooterStyled = styled("footer")`
   background-color: #7ccb2b;
-  position: fixed;
+  color: #423460;
   bottom: 0;
-  width: 100%;
-  height: 60px;
-  color: white;
+  left: 0;
+  right: 0;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
+`;
+
+const CopyrightText = styled("p")`
+  margin: 0;
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
 `;
 
 export const Footer = () => {
   return (
     <FooterStyled data-testid="footer">
       <Image src={MainIcon} alt="Main Icon" width={50} />
+      <CopyrightText>&copy; Adrián Solé</CopyrightText>
     </FooterStyled>
   );
 };

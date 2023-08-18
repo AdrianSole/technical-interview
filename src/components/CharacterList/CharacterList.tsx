@@ -8,12 +8,16 @@ import { Character } from "src/api/types/Character";
 import { getOnChangePage } from "src/utils/getOnChangePage";
 import { PaginationInfo } from "src/api/types/PaginationInfo";
 import { CharacterListProps } from "src/app/page";
+import Image from "next/image";
+import { getStar } from "src/utils/getStar";
+import { FavCharacters } from "../FavCharacters";
 
 const ListContainer = styled("div")`
   display: flex;
   background-color: #76be2e;
   align-items: center;
   margin: 10px;
+  margin-top: 20px;
 `;
 
 const List = styled("ul")`
@@ -38,6 +42,10 @@ const ListItem = styled("li")`
   }
 `;
 
+const Fav = styled("div")`
+  margin-right: 10px;
+`;
+
 export const CharacterList = ({
   listState,
   paginationState,
@@ -46,6 +54,8 @@ export const CharacterList = ({
   const [characterModal, setCharacterModal] = useState<Character>();
   const [mainList, setMainList] = useState<Character[]>(listState);
   const [pagination, setPagination] = useState<PaginationInfo>(paginationState);
+  const [fav, setFav] = useState<boolean[]>([]);
+  const [favList, setFavList] = useState<Character[]>([]);
 
   const onPrev = async () => {
     const prevURL = pagination.prev;
@@ -69,21 +79,44 @@ export const CharacterList = ({
     setIsOpen(modalState);
   };
 
+  const isFav = (character: Character) => {
+    return favList.some((char) => char.id === character.id);
+  };
+
+  const handleFavUnFav = (id: number, character: Character) => {
+    const updatedFav = [...fav];
+    updatedFav[id] = !updatedFav[id];
+    setFav(updatedFav);
+
+    //
+    if (isFav(character)) {
+      const updatedFavList = favList.filter((char) => char.id !== character.id);
+      setFavList(updatedFavList);
+    } else {
+      setFavList([...favList, character]);
+    }
+  };
+
+  const hasAnyFavorite = fav.some((value) => value);
+
   return (
     <>
-      {console.log(typeof(mainList))}
+      {hasAnyFavorite && <FavCharacters favList={favList} />}
       <ListContainer>
         <List>
           {mainList?.map((characters) => (
-            <ListItem
-              data-testid="listItem"
-              key={characters.id}
-              onClick={() => {
-                setIsOpen(true);
-                setCharacterModal(characters);
-              }}
-            >
-              {characters.name}
+            <ListItem data-testid="listItem" key={characters.id}>
+              <Fav onClick={() => handleFavUnFav(characters.id, characters)}>
+                <Image src={getStar(fav[characters.id])} alt="" width={15} />
+              </Fav>
+              <div
+                onClick={() => {
+                  setIsOpen(true);
+                  setCharacterModal(characters);
+                }}
+              >
+                {characters.name}
+              </div>
             </ListItem>
           ))}
         </List>

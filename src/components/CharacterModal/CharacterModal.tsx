@@ -1,9 +1,11 @@
 "use client";
 
 import styled from "@emotion/styled";
+import Image from "next/image";
 import Link from "next/link";
 import Modal from "react-modal";
 import { Character } from "src/api/types/Character";
+import { getStatusImg } from "src/utils/getStatusImg";
 
 export interface CharacterModalProps {
   characterData: Character | undefined;
@@ -12,6 +14,9 @@ export interface CharacterModalProps {
 }
 
 const customStyles = {
+  overlay: {
+    backgroundColor: 'rgba(153,229,153, 0.75)',
+  },
   content: {
     top: "50%",
     left: "50%",
@@ -20,13 +25,16 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     background: "#7ccb2b",
+    border: '2px solid #f17b85'
   },
+  
 };
 
 const H2 = styled("h2")`
   color: #423460;
   display: flex;
   font-size: 24px;
+  font-weight: bold;
   text-align: center;
   padding-bottom: 25px;
 `;
@@ -92,7 +100,9 @@ export const CharacterModal = ({
         <div data-testid="modalContent">
           <ProfImg src={characterData?.image} alt="alt" />
           <Ol>
-            <li>{characterData?.status}</li>
+            <li>
+              <Image src={getStatusImg(characterData?.status)} alt="" width={35} />
+            </li>
             <li>{characterData?.species}</li>
             <li>{characterData?.gender}</li>
             <li>{characterData?.type}</li>

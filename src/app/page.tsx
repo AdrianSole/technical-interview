@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Head from "next/head";
 import { CharacterList } from "src/components/CharacterList";
 import { Character } from "src/api/types/Character";
 import { PaginationInfo } from "src/api/types/PaginationInfo";
@@ -25,9 +24,6 @@ export default async function Home({
   
     return (
     <>
-      <Head>
-        <title>Rick & Morty Character List</title>
-      </Head>
       <CharacterList listState={listState} paginationState={paginationState} />
     </>
   );
