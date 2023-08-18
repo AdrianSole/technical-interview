@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import MainIcon from "../../assets/mainIcon.png";
 import styled from "@emotion/styled";

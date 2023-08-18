@@ -1,3 +1,5 @@
+"use client";
+
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { Character } from "src/api/types/Character";

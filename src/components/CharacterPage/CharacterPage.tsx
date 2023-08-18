@@ -1,6 +1,8 @@
+"use client";
+
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { CharacterDetailsProps } from "@/pages/character/[character_id]";
+import { CharacterDetailsProps } from "src/mypages/character/[character_id]";
 import Portal from "../../assets/portal.png";
 import Image from "next/image";
 

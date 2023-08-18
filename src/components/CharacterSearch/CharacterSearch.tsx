@@ -1,9 +1,10 @@
+"use client";
+
 import styled from "@emotion/styled";
 import { ChangeEvent, useState } from "react";
 import { Character } from "src/api/types/Character";
 import styles from "./CharacterSearch.module.css";
 import * as CharacterFilterService from "../../api/services/CharacterFilterService";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 const SearchContainer = styled("div")`
@@ -90,14 +91,7 @@ export const CharacterSearch = () => {
           >
             {suggestions?.map((suggestion) => (
               <SuggestionDiv key={suggestion.id}>
-                <Link
-                  href={{
-                    pathname: "/character/[character_id]",
-                    query: {
-                      character_id: suggestion?.id,
-                    },
-                  }}
-                >
+                <Link href={`/character/${suggestion?.id}`}>
                   {suggestion.name}
                 </Link>
               </SuggestionDiv>

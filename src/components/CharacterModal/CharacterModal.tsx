@@ -1,3 +1,5 @@
+"use client";
+
 import styled from "@emotion/styled";
 import Link from "next/link";
 import Modal from "react-modal";
@@ -61,7 +63,7 @@ const Ol = styled("ol")`
 `;
 
 const Info = styled("div")`
-font-size: 18px;
+  font-size: 18px;
   margin-left: 15rem;
   padding-top: 10px;
 `;
@@ -98,16 +100,7 @@ export const CharacterModal = ({
         </div>
 
         <Info>
-          <Link
-            href={{
-              pathname: "/character/[character_id]",
-              query: {
-                character_id: characterData?.id,
-              },
-            }}
-          >
-            Más Info
-          </Link>
+          <Link href={`/character/${characterData?.id}`}>Más Info</Link>
         </Info>
       </Modal>
     </>

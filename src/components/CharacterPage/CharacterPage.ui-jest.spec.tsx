@@ -1,6 +1,6 @@
 import { render, fireEvent, queryByTestId } from "@testing-library/react";
 import { CharacterPage } from "./CharacterPage";
-import { CharacterDetailsProps } from "@/pages/character/[character_id]";
+import { CharacterDetailsProps } from "src/mypages/character/[character_id]";
 
 const mockCharacterData: CharacterDetailsProps["characterData"] = {
   id: 1,

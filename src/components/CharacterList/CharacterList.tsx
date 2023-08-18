@@ -1,11 +1,13 @@
+"use client";
+
 import styled from "@emotion/styled";
 import { Pagination } from "../Pagination";
 import { CharacterModal } from "../CharacterModal";
 import { useState } from "react";
 import { Character } from "src/api/types/Character";
-import { CharacterListProps } from "@/pages/index";
 import { getOnChangePage } from "src/utils/getOnChangePage";
 import { PaginationInfo } from "src/api/types/PaginationInfo";
+import { CharacterListProps } from "src/app/page";
 
 const ListContainer = styled("div")`
   display: flex;
@@ -69,6 +71,7 @@ export const CharacterList = ({
 
   return (
     <>
+      {console.log(typeof(mainList))}
       <ListContainer>
         <List>
           {mainList?.map((characters) => (
