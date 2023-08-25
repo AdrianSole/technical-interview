@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { CharacterDetailsProps } from "src/mypages/character/[character_id]";
+import { CharacterDetailsProps } from "src/app/character/[character_id]/page";
 import Portal from "../../assets/portal.png";
 import Image from "next/image";
 import { getStatusImg } from "src/utils/getStatusImg";
@@ -13,7 +13,7 @@ const Container = styled("div")`
   margin: 2rem;
 `;
 
-const Title = styled("h1")`
+const PageTitle = styled("h1")`
   font-size: 26px;
   font-weight: bold;
   color: #423460;
@@ -72,7 +72,7 @@ export const CharacterPage = ({ characterData }: CharacterDetailsProps) => {
   return (
     <>
       <Container>
-        <Title data-testid="title">{characterData?.name}</Title>
+        <PageTitle data-testid="title">{characterData?.name}</PageTitle>
         <SubTitle data-testid="subtitle">
           <Image src={getStatusImg(characterData?.status)} alt="" />
         </SubTitle>

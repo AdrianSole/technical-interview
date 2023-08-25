@@ -1,6 +1,9 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { CharacterList } from "./CharacterList";
+// Importa las bibliotecas necesarias
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { CharacterList } from "./CharacterList"; 
 
+// Mock de los props del componente
 const mockListState = [
   {
     id: 1,
@@ -33,18 +36,34 @@ const mockPaginationState = {
   prev: "",
 };
 
-describe("CharacterList", () => {
-  it("should render the component", async () => {
-    const { getByTestId } = render(
+describe("CharacterList Component", () => {
+  it("renders character list items", () => {
+    const {getByTestId} = render(
       <CharacterList
         listState={mockListState}
         paginationState={mockPaginationState}
       />
     );
-    const listContainer = getByTestId("listContainer");
-    const list = getByTestId("list");
 
+    const listContainer = getByTestId("listContainer");
     expect(listContainer).toBeInTheDocument();
-    expect(list).toBeInTheDocument();
+      
+  });
+
+  it("opens character modal on item click", () => {
+    render(
+      <CharacterList
+        listState={mockListState}
+        paginationState={mockPaginationState}
+      />
+    );
+
+    // Simula el clic en un elemento de la lista para abrir el modal
+    const listItem = screen.getByTestId("listItem");
+    fireEvent.click(listItem);
+
+    // Verifica que el modal se abra
+    const modal = screen.getByTestId("characterModal");
+    expect(modal).toBeInTheDocument();
   });
 });

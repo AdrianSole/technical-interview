@@ -19,8 +19,10 @@ Dispones de 3 horas para realizar la parte básica del ejercicio desde que recib
 - [X] Listado de personajes con paginación.
 - [X] Ventana modal de cada personaje listado.
 - [X] Campo de busqueda por nombre que muestre sugerencias.
-- [ ] Testing.
 - [X] Styled components.
-- [ ] Storybook para el testing.
 - [X] Sistema de caché local para las peticiones.
 - [X] Lanzar testing a traves de github actions.
+- [X] Next13.
+- [X] Permite guardar personajes como favoritos.
+- [ ] Testing.
+- [ ] Storybook para el testing.

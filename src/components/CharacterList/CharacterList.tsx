@@ -9,7 +9,6 @@ import { getOnChangePage } from "src/utils/getOnChangePage";
 import { PaginationInfo } from "src/api/types/PaginationInfo";
 import { CharacterListProps } from "src/app/page";
 import Image from "next/image";
-import { getStar } from "src/utils/getStar";
 import { FavCharacters } from "../FavCharacters";
 import { useFav } from "../FavCharacterContext";
 

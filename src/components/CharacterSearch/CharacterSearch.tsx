@@ -61,6 +61,7 @@ export const CharacterSearch = () => {
     loadFilteredData();
   };
 
+  /** setSearchValue() && filterCharacters() */
   const handleChange = (e: Change) => {
     setSearchValue(e.target.value);
     filterCharacters();
