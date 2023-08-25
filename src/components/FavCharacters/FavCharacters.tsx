@@ -16,7 +16,7 @@ const FavList = styled.div`
   margin-bottom: 20px;
 `;
 
-const FavButton = styled.div`
+const FavDiv = styled.div`
   background-color: #f17b85;
   color: #423460;
   border: none;
@@ -42,14 +42,14 @@ export const FavCharacters = ({ favList }: FavCharactersProps) => {
   const context = useFav();
 
   return (
-    <FavList>
+    <FavList data-testid="favList">
       {favList?.map((favCharacter) => (
-        <FavButton key={favCharacter.id}>
+        <FavDiv key={favCharacter.id}>
           <Link href={`/character/${favCharacter.id}`}>{favCharacter.name}</Link>
           <ImgContainer onClick={() => context.removeFav(favCharacter)}>
             <Image src={Delete} alt="" width={18} />
           </ImgContainer>
-        </FavButton>
+        </FavDiv>
       ))}
     </FavList>
   );

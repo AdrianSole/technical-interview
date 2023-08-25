@@ -81,12 +81,11 @@ export const CharacterList = ({
 
   return (
     <>
-      {console.log(context.favListState)}
       {context.hasAnyFavorite && (
         <FavCharacters favList={context.favListState} />
       )}
-      <ListContainer>
-        <List>
+      <ListContainer data-testid="listContainer">
+        <List data-testid="list">
           {mainList?.map((characters) => (
             <ListItem data-testid="listItem" key={characters.id}>
               <Fav
