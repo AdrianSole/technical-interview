@@ -7,6 +7,7 @@ import {
   createContext,
   useContext,
   useState,
+  useEffect,
 } from "react";
 import { Character } from "src/api/types/Character";
 import { getStar } from "src/utils/getStar";

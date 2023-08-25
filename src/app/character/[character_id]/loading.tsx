@@ -41,9 +41,9 @@ export default function Loading() {
   return (
     <>
       <LoadingScreenWrapper>
-      <LoadingAnimation />
-      <LoadingText>Loading ...</LoadingText>
-    </LoadingScreenWrapper>
+        <LoadingAnimation />
+        <LoadingText>Loading ...</LoadingText>
+      </LoadingScreenWrapper>
     </>
   );
 }

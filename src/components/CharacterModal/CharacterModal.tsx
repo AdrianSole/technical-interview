@@ -15,7 +15,7 @@ export interface CharacterModalProps {
 
 const customStyles = {
   overlay: {
-    backgroundColor: 'rgba(153,229,153, 0.75)',
+    backgroundColor: "rgba(153,229,153, 0.75)",
   },
   content: {
     top: "50%",
@@ -25,9 +25,8 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     background: "#7ccb2b",
-    border: '2px solid #f17b85'
+    border: "2px solid #f17b85",
   },
-  
 };
 
 const H2 = styled("h2")`
@@ -101,7 +100,11 @@ export const CharacterModal = ({
           <ProfImg src={characterData?.image} alt="alt" />
           <Ol>
             <li>
-              <Image src={getStatusImg(characterData?.status)} alt="" width={35} />
+              <Image
+                src={getStatusImg(characterData?.status)}
+                alt=""
+                width={35}
+              />
             </li>
             <li>{characterData?.species}</li>
             <li>{characterData?.gender}</li>
@@ -110,7 +113,12 @@ export const CharacterModal = ({
         </div>
 
         <Info>
-          <Link href={`/character/${characterData?.id}`}>Más Info</Link>
+          <Link
+            href={`/character/${characterData?.id}`}
+            style={{ textDecoration: "none" }}
+          >
+            Más Info
+          </Link>
         </Info>
       </Modal>
     </>

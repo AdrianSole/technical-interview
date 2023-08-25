@@ -92,7 +92,7 @@ export const CharacterSearch = () => {
           >
             {suggestions?.map((suggestion) => (
               <SuggestionDiv key={suggestion.id}>
-                <Link href={`/character/${suggestion?.id}`}>
+                <Link href={`/character/${suggestion?.id}`}  style={{ textDecoration: "none" }}>
                   {suggestion.name}
                 </Link>
               </SuggestionDiv>

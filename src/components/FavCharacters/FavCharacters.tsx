@@ -45,7 +45,12 @@ export const FavCharacters = ({ favList }: FavCharactersProps) => {
     <FavList data-testid="favList">
       {favList?.map((favCharacter) => (
         <FavDiv key={favCharacter.id}>
-          <Link href={`/character/${favCharacter.id}`}>{favCharacter.name}</Link>
+          <Link
+            href={`/character/${favCharacter.id}`}
+            style={{ textDecoration: "none" }}
+          >
+            {favCharacter.name}
+          </Link>
           <ImgContainer onClick={() => context.removeFav(favCharacter)}>
             <Image src={Delete} alt="" width={18} />
           </ImgContainer>
