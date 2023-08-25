@@ -4,7 +4,7 @@ import { Character } from "src/api/types/Character";
 
 import Image from "next/image";
 import Delete from "../../assets/delete.png";
-import { useState } from "react";
+import { useFav } from "../FavCharacterContext";
 
 const FavList = styled.div`
   background-color: #7ccb2b;
@@ -39,21 +39,14 @@ interface FavCharactersProps {
 }
 
 export const FavCharacters = ({ favList }: FavCharactersProps) => {
-  const [favListState, setFavListState] = useState<Character[]>(favList);
-
-  const removeFav = (favItem: Character) => {
-    const updatedFavList = favListState.filter(
-      (char) => char.id !== favItem.id
-    );
-    setFavListState(updatedFavList);
-  };
+  const context = useFav();
 
   return (
     <FavList>
-      {favList.map((favItem) => (
-        <FavButton key={favItem.id}>
-          <Link href={`/character/${favItem.id}`}>{favItem.name}</Link>
-          <ImgContainer onClick={() => removeFav(favItem)}>
+      {favList?.map((favCharacter) => (
+        <FavButton key={favCharacter.id}>
+          <Link href={`/character/${favCharacter.id}`}>{favCharacter.name}</Link>
+          <ImgContainer onClick={() => context.removeFav(favCharacter)}>
             <Image src={Delete} alt="" width={18} />
           </ImgContainer>
         </FavButton>

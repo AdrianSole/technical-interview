@@ -11,6 +11,7 @@ import { CharacterListProps } from "src/app/page";
 import Image from "next/image";
 import { getStar } from "src/utils/getStar";
 import { FavCharacters } from "../FavCharacters";
+import { useFav } from "../FavCharacterContext";
 
 const ListContainer = styled("div")`
   display: flex;
@@ -54,8 +55,7 @@ export const CharacterList = ({
   const [characterModal, setCharacterModal] = useState<Character>();
   const [mainList, setMainList] = useState<Character[]>(listState);
   const [pagination, setPagination] = useState<PaginationInfo>(paginationState);
-  const [fav, setFav] = useState<boolean[]>([]);
-  const [favList, setFavList] = useState<Character[]>([]);
+  const context = useFav();
 
   const onPrev = async () => {
     const prevURL = pagination.prev;
@@ -79,35 +79,26 @@ export const CharacterList = ({
     setIsOpen(modalState);
   };
 
-  const isFav = (character: Character) => {
-    return favList.some((char) => char.id === character.id);
-  };
-
-  const handleFavUnFav = (id: number, character: Character) => {
-    const updatedFav = [...fav];
-    updatedFav[id] = !updatedFav[id];
-    setFav(updatedFav);
-
-    //
-    if (isFav(character)) {
-      const updatedFavList = favList.filter((char) => char.id !== character.id);
-      setFavList(updatedFavList);
-    } else {
-      setFavList([...favList, character]);
-    }
-  };
-
-  const hasAnyFavorite = fav.some((value) => value);
-
   return (
     <>
-      {hasAnyFavorite && <FavCharacters favList={favList} />}
+      {console.log(context.favListState)}
+      {context.hasAnyFavorite && (
+        <FavCharacters favList={context.favListState} />
+      )}
       <ListContainer>
         <List>
           {mainList?.map((characters) => (
             <ListItem data-testid="listItem" key={characters.id}>
-              <Fav onClick={() => handleFavUnFav(characters.id, characters)}>
-                <Image src={getStar(fav[characters.id])} alt="" width={15} />
+              <Fav
+                onClick={() =>
+                  context.handleFavUnfav(characters.id, characters)
+                }
+              >
+                <Image
+                  src={context.addRemoveStar(characters)}
+                  alt=""
+                  width={15}
+                />
               </Fav>
               <div
                 onClick={() => {
