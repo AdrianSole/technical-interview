@@ -92,6 +92,7 @@ export const CharacterList = ({
     if (isFav(character)) {
       const updatedFavList = favList.filter((char) => char.id !== character.id);
       setFavList(updatedFavList);
+      {console.log(`Father: ${favList}`)}
     } else {
       setFavList([...favList, character]);
     }

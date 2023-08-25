@@ -18,7 +18,6 @@ const FavList = styled.div`
 
 const FavButton = styled.div`
   background-color: #f17b85;
-  color: #423460;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
@@ -46,18 +45,28 @@ export const FavCharacters = ({ favList }: FavCharactersProps) => {
       (char) => char.id !== favItem.id
     );
     setFavListState(updatedFavList);
+    {
+      console.log(`Son: ${favListState}`);
+    }
   };
 
   return (
-    <FavList>
-      {favList.map((favItem) => (
-        <FavButton key={favItem.id}>
-          <Link href={`/character/${favItem.id}`}>{favItem.name}</Link>
-          <ImgContainer onClick={() => removeFav(favItem)}>
-            <Image src={Delete} alt="" width={18} />
-          </ImgContainer>
-        </FavButton>
-      ))}
-    </FavList>
+    <>
+      <FavList>
+        {favList.map((favItem) => (
+          <FavButton key={favItem.id}>
+            <Link
+              href={`/character/${favItem.id}`}
+              style={{ textDecoration: "none", color: "#423460" }}
+            >
+              {favItem.name}
+            </Link>
+            <ImgContainer onClick={() => removeFav(favItem)}>
+              <Image src={Delete} alt="" width={18} />
+            </ImgContainer>
+          </FavButton>
+        ))}
+      </FavList>
+    </>
   );
 };
