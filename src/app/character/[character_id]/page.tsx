@@ -6,9 +6,6 @@ import { CharacterPage } from "src/components/CharacterPage";
 import * as characterFilterService from "../../../api/services/CharacterFilterService";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Character Details",
-};
 
 export interface CharacterDetailsProps {
   characterData: Character | null;
