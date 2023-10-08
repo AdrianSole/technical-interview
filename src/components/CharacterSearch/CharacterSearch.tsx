@@ -1,11 +1,9 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { ChangeEvent, useState } from "react";
-import { Character } from "src/api/types/Character";
 import styles from "./CharacterSearch.module.css";
-import * as CharacterFilterService from "../../api/services/CharacterFilterService";
 import Link from "next/link";
+import { useCharacterSearch } from "src/hooks/useCharacterSearch";
 
 const SearchContainer = styled("div")`
   width: 30rem;
@@ -43,29 +41,15 @@ const SuggestionDiv = styled("div")`
   }
 `;
 
-type Change = ChangeEvent<HTMLInputElement>;
-
 export const CharacterSearch = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [suggestions, setSuggestions] = useState<Character[]>();
-  const [hideSuggestions, setHideSuggestions] = useState(true);
-
-  const filterCharacters = () => {
-    const loadFilteredData = async () => {
-      const res = await CharacterFilterService.getCharactersFiltered(
-        searchValue
-      );
-      setSuggestions(res?.data.results);
-    };
-
-    loadFilteredData();
-  };
-
-  /** setSearchValue() && filterCharacters() */
-  const handleChange = (e: Change) => {
-    setSearchValue(e.target.value);
-    filterCharacters();
-  };
+  const {
+    searchValue,
+    handleChange,
+    onFocus,
+    onBlur,
+    hideSuggestions,
+    suggestions,
+  } = useCharacterSearch();
 
   return (
     <>
@@ -77,12 +61,8 @@ export const CharacterSearch = () => {
             placeholder="Search a character..."
             value={searchValue}
             onChange={handleChange}
-            onFocus={() => setHideSuggestions(false)}
-            onBlur={async () => {
-              setTimeout(() => {
-                setHideSuggestions(true);
-              }, 200);
-            }}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
           <div
             className={`${styles["suggestions"]} ${
@@ -92,7 +72,10 @@ export const CharacterSearch = () => {
           >
             {suggestions?.map((suggestion) => (
               <SuggestionDiv key={suggestion.id}>
-                <Link href={`/character/${suggestion?.id}`}  style={{ textDecoration: "none" }}>
+                <Link
+                  href={`/character/${suggestion?.id}`}
+                  style={{ textDecoration: "none" }}
+                >
                   {suggestion.name}
                 </Link>
               </SuggestionDiv>
